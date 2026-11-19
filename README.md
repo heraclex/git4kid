@@ -1,6 +1,6 @@
 # Git for everyone — presentation + playground
 
-- `presentation.html` — the slide deck (open in a browser; `M` = jump menu, `F` = fullscreen).
+- `presentation.html` — the slide deck (open in a browser; `T` = slide sidebar, `F` = fullscreen).
 - `playground/` — source files of the hands-on project, **Hero Card Studio** (browse them here).
 - `playground.bundle` — the same project **with its Git history** (including the deliberate "Oops" commit). This is what participants use.
 
