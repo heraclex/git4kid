@@ -1,8 +1,8 @@
-I would explain GitHub to a 15-year-old using something familiar: **Google Docs + a time machine + teamwork for programmers.**
+Explain GitHub to a 15-year-old using something familiar: **Google Docs + a time machine + teamwork for programmers.**
 
 The most important thing is not to start with Git commands or complicated programming terminology. Let your kid understand the problem GitHub solves first, then let them try it themselves.
 
-Here's how I'd teach it in about 20–30 minutes.
+Here's how presenting it in about 20–30 minutes.
 
 # **1. Explain GitHub using a simple story**
 
@@ -273,7 +273,3 @@ A natural learning path would be:
 3. **Programming:** Learn Python or JavaScript.
 4. **Build something:** A small calculator, quiz game, or website.
 5. **Collaboration:** Work with another person on the same project.
-
-My recommendation: Let them build something they genuinely enjoy, such as a Minecraft-inspired game or a personal website. Motivation matters much more than memorizing commands.
-
-I can also prepare a second hands-on lesson introducing **Git commands using VS Code**, where your kid actually sees how developers work with GitHub in a real development environment.
