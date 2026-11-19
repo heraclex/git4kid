@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git &amp; GitHub — Your Time Machine for Work</title>
+<style>
+:root{
+  --bg:#0b1020;--panel:#151d33;--panel2:#1c2945;--text:#f4f7ff;--muted:#b8c3dc;
+  --accent:#7c9cff;--mint:#62e6c5;--yellow:#ffd36e;--pink:#ff8eae;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;overflow:hidden}
+.deck{height:100vh;width:100vw;position:relative}
+.slide{display:none;height:100%;width:100%;padding:5vh 7vw 9vh;overflow:auto;animation:in .25s ease}
+.slide.active{display:flex;flex-direction:column;justify-content:center}
+@keyframes in{from{opacity:.35;transform:translateY(8px)}to{opacity:1;transform:none}}
+.eyebrow{color:var(--mint);font-size:clamp(12px,1.2vw,16px);font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px}
+h1{font-size:clamp(42px,7vw,88px);line-height:1.02;letter-spacing:-.045em;margin:0 0 24px;max-width:1000px}
+h2{font-size:clamp(30px,4.2vw,56px);line-height:1.05;letter-spacing:-.035em;margin:0 0 22px}
+h3{font-size:clamp(19px,2vw,26px);margin:0 0 10px}
+p{font-size:clamp(17px,1.65vw,23px);line-height:1.5;color:var(--muted);max-width:950px;margin:0 0 18px}
+strong{color:var(--text)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#1c2945;color:var(--yellow);padding:2px 7px;border-radius:7px;font-size:.9em}
+.accent{color:var(--mint)}.blue{color:var(--accent)}.yellow{color:var(--yellow)}.pink{color:var(--pink)}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid #344361;border-radius:999px;color:var(--muted);font-size:14px;margin:5px 7px 5px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px;max-width:1050px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid #2b3958;border-radius:22px;padding:22px;min-width:0}
+.card p{font-size:clamp(15px,1.3vw,18px);margin:0}
+.card .eg{margin-top:10px;color:var(--yellow);font-size:clamp(14px,1.2vw,16px)}
+.icon{font-size:34px;margin-bottom:12px}
+.bigline{font-size:clamp(24px,3vw,40px);font-weight:800;line-height:1.2;max-width:1000px}
+.flow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:24px 0}
+.node{background:#202d4b;border:1px solid #3a4b70;padding:18px 22px;border-radius:16px;text-align:center;font-weight:800;font-size:clamp(15px,1.6vw,21px)}
+.arrow{font-size:28px;color:var(--mint)}
+pre,.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#090e1a;border:1px solid #2b3958;border-radius:16px;padding:18px 22px;color:#c9d7ff;font-size:clamp(14px,1.45vw,19px);line-height:1.65;white-space:pre-wrap;max-width:900px;margin:0 0 16px}
+.steps{counter-reset:step;display:grid;gap:12px;max-width:950px}
+.step{display:flex;gap:15px;align-items:flex-start;background:var(--panel);border:1px solid #2b3958;border-radius:16px;padding:15px 18px}
+.step:before{counter-increment:step;content:counter(step);display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:50%;background:var(--accent);color:#081020;font-weight:900}
+.step p{font-size:clamp(15px,1.35vw,19px);margin:0}
+.callout{border-left:4px solid var(--mint);padding:12px 18px;background:#122b31;border-radius:0 14px 14px 0;max-width:950px;margin-top:18px}
+.callout p{margin:0;color:#d8fff5;font-size:clamp(16px,1.5vw,21px)}
+.callout.warn{border-color:var(--yellow);background:#2e2a14}.callout.warn p{color:#fff3cf}
+.footer{position:fixed;bottom:0;left:0;right:0;height:64px;padding:0 28px;display:flex;align-items:center;gap:16px;background:linear-gradient(transparent,rgba(11,16,32,.96) 30%)}
+.progress{height:4px;background:#293550;border-radius:10px;flex:1;overflow:hidden}
+.progress span{display:block;height:100%;width:0;background:var(--mint);transition:width .2s}
+.counter{font-size:13px;color:var(--muted);min-width:55px;text-align:right}
+button{border:1px solid #405174;background:#1a2742;color:white;border-radius:12px;padding:9px 15px;font-size:16px;cursor:pointer;font-family:inherit}
+button:hover:not(:disabled){background:#293b61}
+button:disabled{opacity:.35;cursor:default}
+.navhint{font-size:12px;color:#8291b1}
+ul,ol{font-size:clamp(17px,1.6vw,22px);line-height:1.7;color:var(--muted);padding-left:1.2em;margin-top:0}
+li::marker{color:var(--mint)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1050px;align-items:center}
+.pill{display:inline-block;background:#263553;color:#dbe5ff;border-radius:10px;padding:7px 10px;font-size:13px;margin:3px}
+table{border-collapse:separate;border-spacing:0 8px;max-width:850px;width:100%;font-size:clamp(15px,1.6vw,22px)}
+td,th{padding:12px 18px;text-align:left}
+th{color:var(--mint);font-size:.7em;letter-spacing:.12em;text-transform:uppercase}
+td{background:var(--panel);color:var(--muted)}
+td:first-child{border-radius:14px 0 0 14px}td:last-child{border-radius:0 14px 14px 0;color:var(--text);font-weight:800}
+.qa{background:var(--panel);border:1px solid #2b3958;border-radius:16px;padding:14px 18px;max-width:950px;margin-bottom:10px;cursor:pointer}
+.qa .q{font-size:clamp(16px,1.5vw,21px);color:var(--text);font-weight:600}
+.qa .a{display:none;margin-top:8px;color:var(--mint);font-size:clamp(15px,1.35vw,19px)}
+.qa.open .a{display:block}
+.qa .tapme{color:#8291b1;font-size:12px;float:right}
+.check{display:flex;gap:12px;align-items:center;background:var(--panel);border:1px solid #2b3958;border-radius:14px;padding:12px 16px;max-width:950px;margin-bottom:10px;cursor:pointer;font-size:clamp(15px,1.4vw,19px);color:var(--muted);user-select:none}
+.check input{width:22px;height:22px;accent-color:var(--mint)}
+.check.done{border-color:var(--mint);color:var(--text)}
+.check.done span{text-decoration:line-through;opacity:.8}
+.win{display:none;font-size:clamp(22px,2.6vw,34px);font-weight:800;color:var(--mint);margin-top:10px}
+.win.show{display:block;animation:in .3s ease}
+.branch-vis{font-family:ui-monospace,Menlo,monospace;color:#c9d7ff;font-size:clamp(14px,1.4vw,18px);line-height:1.8}
+.agenda{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:1050px;margin-top:10px}
+.agenda button{text-align:left;padding:18px;border-radius:18px;background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid #2b3958;font-size:clamp(15px,1.4vw,19px);line-height:1.35}
+.agenda button:hover{border-color:var(--mint);transform:translateY(-2px)}
+.agenda .n{display:block;color:var(--mint);font-weight:900;font-size:.8em;letter-spacing:.12em;margin-bottom:6px}
+.agenda .s{display:block;color:var(--muted);font-size:.8em;margin-top:6px}
+#menu{position:fixed;inset:0;background:rgba(5,8,18,.94);z-index:10;display:none;overflow:auto;padding:5vh 6vw 90px}
+#menu.open{display:block;animation:in .2s ease}
+#menu h2{margin-bottom:16px}
+#menu .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+#menu .list button{text-align:left;display:flex;gap:12px;align-items:center;padding:12px 14px;font-size:15px;border-radius:14px}
+#menu .list button.cur{border-color:var(--mint);background:#122b31}
+#menu .list b{color:var(--mint);min-width:26px}
+@media(max-width:700px){
+ .agenda{grid-template-columns:1fr}
+ .slide{padding:5vh 6vw 90px}.grid,.grid.three,.split{grid-template-columns:1fr}
+ .footer{padding:0 12px;gap:8px}.navhint{display:none}
+}
+@media print{
+ #menu{display:none!important}
+ body{overflow:visible;background:#fff;color:#111}.deck{height:auto}
+ .slide{display:flex!important;min-height:100vh;page-break-after:always;background:#0b1020;color:white}
+ .footer{display:none}
+ .qa .a{display:block}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1. Title -->
+<section class="slide active">
+ <div class="eyebrow">A hands-on mini lesson · no coding required</div>
+ <h1>Git &amp; GitHub:<br><span class="accent">your time machine</span><br>for work.</h1>
+ <p>Think of it as <strong>Google Docs + a time machine + teamwork for programmers</strong>. First we understand the problem it solves — then we try it ourselves.</p>
+ <div style="margin-top:12px"><span class="tag">⏱ 20–30 minutes</span><span class="tag">🎮 Game-project examples</span><span class="tag">🧑‍💻 Beginner friendly</span><span class="tag">🖐 Hands-on</span></div>
+ <div class="callout"><p>Today's mission: create a project, change it three times, and experience the real workflow developers use every day.</p></div>
+</section>
+
+<!-- Agenda -->
+<section class="slide" id="agenda-slide">
+ <div class="eyebrow">Agenda · click to jump</div>
+ <h2>Where do you want to go?</h2>
+ <div class="agenda" id="agenda"></div>
+ <p style="margin-top:16px;font-size:clamp(13px,1.1vw,16px)">Tip: press <code>M</code> any time to open the menu with every slide.</p>
+</section>
+
+<!-- 2. Approach -->
+<section class="slide">
+ <div class="eyebrow">How this session works</div>
+ <h2>Problem first, commands later</h2>
+ <p>The most important rule: <strong>don't start with Git commands or scary programming words.</strong> Understand the problem Git solves first, then try it with your own hands.</p>
+ <div class="flow">
+  <div class="node">🧩 Understand the problem</div><div class="arrow">→</div>
+  <div class="node">💡 Learn 4 ideas</div><div class="arrow">→</div>
+  <div class="node">🖐 Try it yourself</div>
+ </div>
+ <div class="callout"><p>Part 1: story &amp; ideas · Part 2: GitHub website demo · Part 3: a playground you run on your own computer.</p></div>
+</section>
+
+<!-- 3. Story -->
+<section class="slide">
+ <div class="eyebrow">01 · Start with a simple story</div>
+ <h2>Ever had files like these?</h2>
+ <p>Imagine you're creating a computer game. You write some code, change it, add new features, and sometimes accidentally break things. Without Git, you might end up with:</p>
+<pre>my-game/
+  my-game-final.py
+  my-game-final-v2.py
+  my-game-final-fixed.py
+  my-game-final-really-final.py</pre>
+ <div class="bigline">We've all seen this problem! 😅</div>
+ <p style="margin-top:14px">Which file is the newest? Which one works? Git (and GitHub) solve this by saving the <span class="yellow">history</span> of your project and helping people collaborate.</p>
+</section>
+
+<!-- 4. Vocabulary table -->
+<section class="slide">
+ <div class="eyebrow">01 · Real world ↔ Git world</div>
+ <h2>Same ideas, different names</h2>
+ <table>
+  <tr><th>Real-world concept</th><th>Git / GitHub concept</th></tr>
+  <tr><td>A project folder</td><td>Repository (Repo)</td></tr>
+  <tr><td>Save a version of your work</td><td>Commit</td></tr>
+  <tr><td>A history book of changes</td><td>Commit history</td></tr>
+  <tr><td>Try a new idea separately</td><td>Branch</td></tr>
+  <tr><td>Ask to combine your work</td><td>Pull Request</td></tr>
+  <tr><td>Share your project online</td><td>GitHub</td></tr>
+ </table>
+</section>
+
+<!-- 5. Git vs GitHub -->
+<section class="slide">
+ <div class="eyebrow">01 · One important distinction</div>
+ <h2>Git vs GitHub</h2>
+ <div class="split">
+  <div class="card"><div class="icon">🕰️</div><h3 class="accent">Git</h3><p>The <strong>tool</strong> that tracks changes in your code.</p><div class="pill">Tracks history</div><div class="pill">Runs on your computer</div></div>
+  <div class="card"><div class="icon">🐙</div><h3 class="blue">GitHub</h3><p>A <strong>website / platform</strong> that hosts Git projects and makes collaboration easier.</p><div class="pill">Hosts repositories</div><div class="pill">Helps teams collaborate</div></div>
+ </div>
+ <div class="callout"><p>An easy sentence to remember:<br><strong>Git is the time machine. GitHub is the place where developers share their time machines and work together.</strong></p></div>
+</section>
+
+<!-- 6. Four concepts -->
+<section class="slide">
+ <div class="eyebrow">02 · Introduce the four most important concepts</div>
+ <h2>The starter pack — only these four</h2>
+ <div class="grid">
+  <div class="card"><div class="icon">📁</div><h3>1. Repository (Repo)</h3><p>A project folder containing all your files and the history of changes.</p><div class="eg">Example: a repository called <code>my-first-game</code>.</div></div>
+  <div class="card"><div class="icon">📸</div><h3>2. Commit</h3><p>A saved checkpoint of your project.</p><div class="eg">Example: “I added a player character.”</div></div>
+  <div class="card"><div class="icon">🌿</div><h3>3. Branch</h3><p>A separate workspace where you can experiment without changing the main version.</p><div class="eg">Example: try adding a new game level.</div></div>
+  <div class="card"><div class="icon">🔀</div><h3>4. Pull Request (PR)</h3><p>A proposal to merge your changes into the main project.</p><div class="eg">Example: “I've finished the new level. Can we add it to the game?”</div></div>
+ </div>
+</section>
+
+<!-- 7. Journey -->
+<section class="slide">
+ <div class="eyebrow">02 · How the ideas fit together</div>
+ <h2>A tiny project journey</h2>
+ <div class="flow">
+  <div class="node">📁 Create repo</div><div class="arrow">→</div>
+  <div class="node">📸 Commit</div><div class="arrow">→</div>
+  <div class="node">🌿 Branch</div>
+ </div>
+ <div class="flow">
+  <div class="node">✍️ Make changes</div><div class="arrow">→</div>
+  <div class="node">🔀 Pull Request</div><div class="arrow">→</div>
+  <div class="node">🎉 Merge</div>
+ </div>
+ <p>In plain English: start a project, save a checkpoint, experiment separately, ask to combine your changes, then merge them.</p>
+</section>
+
+<!-- 8. Demo intro + step 1 -->
+<section class="slide">
+ <div class="eyebrow">03 · Let's do a small practical demo · Step 1 of 5</div>
+ <h2>Create a GitHub account &amp; your first repo</h2>
+ <p>Beginner friendly · No coding required. We'll use the <strong>GitHub website</strong> — no installing, no terminal.<br><strong class="accent">The mission: create your first project and change it three times, just like a real developer.</strong></p>
+ <p>Go to <strong>github.com</strong> and create a free account. Then:</p>
+ <div class="steps">
+  <div class="step"><p>Click the <code>+</code> button in the top-right corner.</p></div>
+  <div class="step"><p>Select <code>New repository</code>.</p></div>
+  <div class="step"><p>Name it <code>my-first-project</code>.</p></div>
+  <div class="step"><p>Choose <code>Public</code> (so you can share it).</p></div>
+  <div class="step"><p>Tick <code>Add a README file</code>.</p></div>
+  <div class="step"><p>Click <code>Create repository</code>.</p></div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">03 · Step 1 · Safety first</div>
+ <h2>🎉 You've created your first repository!</h2>
+ <div class="callout warn"><p><strong>Safety tip:</strong> a public repository can be seen by anyone. Never publish passwords, private information, your home address, or anything you want to keep private.</p></div>
+ <p style="margin-top:22px">Next up: save your first checkpoint.</p>
+</section>
+
+<!-- Step 2 -->
+<section class="slide">
+ <div class="eyebrow">03 · Step 2 of 5 · First checkpoint</div>
+ <h2>Make your first commit</h2>
+ <p>Open the <code>README.md</code> file and click the <strong>pencil icon</strong> to edit it. Add this content (replace <em>Alex</em> with your name):</p>
+<pre># My First Project
+
+Hello! My name is Alex.
+
+I am learning GitHub.
+
+## My interests
+- Gaming
+- Football
+- Programming
+
+## My goal
+Build my first computer game!</pre>
+ <p>Scroll to the commit section. Commit message: <code>Create my first README</code> → click <code>Commit changes</code>.</p>
+ <div class="callout"><p>“You've just saved a checkpoint. GitHub remembers what your project looked like at this moment.” 📸</p></div>
+</section>
+
+<!-- Step 3 -->
+<section class="slide">
+ <div class="eyebrow">03 · Step 3 of 5 · Build the history</div>
+ <h2>Change something and commit again</h2>
+ <p>Edit <code>README.md</code> again. Add:</p>
+<pre>## My favourite games
+- Minecraft
+- Roblox
+- Fortnite</pre>
+ <p>Commit with this message: <code>Add my favourite games</code></p>
+ <div class="flow" style="margin:6px 0">
+  <div class="node">Commit 1<br><small>Create my first README</small></div><div class="arrow">→</div>
+  <div class="node">Commit 2<br><small>Add my favourite games</small></div>
+ </div>
+ <p>Now you have two commits. Open the repository's <strong>commit history</strong> and see how GitHub remembers both versions.</p>
+ <div class="callout"><p><strong>The interesting part:</strong> if you accidentally delete something, you can look at the previous commit and recover your earlier work. ⏪</p></div>
+</section>
+
+<!-- Step 4 -->
+<section class="slide">
+ <div class="eyebrow">03 · Step 4 of 5 · Experiment safely</div>
+ <h2>Introduce branching</h2>
+ <div class="split">
+  <div>
+   <p>Pretend you want to add a new feature. Instead of modifying the main project directly:</p>
+   <ol>
+    <li>Go to the repository's <strong>branch selector</strong>.</li>
+    <li>Create a new branch called <code>add-my-hobbies</code>.</li>
+    <li>Edit <code>README.md</code> on that branch.</li>
+    <li>Add a new section (right).</li>
+    <li>Commit the changes.</li>
+   </ol>
+  </div>
+  <div>
+<pre>## My hobbies
+- Playing football
+- Building LEGO
+- Playing video games</pre>
+   <div class="card">
+    <div class="branch-vis"><span class="blue">main</span> ──●──●─────────<br><span class="accent">add-my-hobbies</span> ───╰──●</div>
+   </div>
+  </div>
+ </div>
+ <div class="callout"><p>The <strong>main</strong> branch hasn't been changed. The new work lives separately.</p></div>
+</section>
+
+<!-- Step 5 -->
+<section class="slide">
+ <div class="eyebrow">03 · Step 5 of 5 · Ask to combine the work</div>
+ <h2>Create a Pull Request → Merge</h2>
+ <p>This is where GitHub becomes interesting.</p>
+ <div class="steps">
+  <div class="step"><p>Go to the <strong>Pull requests</strong> tab and click <code>New pull request</code>.</p></div>
+  <div class="step"><p>Select <strong>Base:</strong> <code>main</code> and <strong>Compare:</strong> <code>add-my-hobbies</code>. You should see the changes you made.</p></div>
+  <div class="step"><p>Give it a title: <code>Add my hobbies to the project</code></p></div>
+  <div class="step"><p>Click <code>Create pull request</code>.</p></div>
+  <div class="step"><p>Finally, click <code>Merge pull request</code> and confirm.</p></div>
+ </div>
+ <div class="callout"><p>“You're asking the project owner to review your work before adding it to the main project.”</p></div>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">03 · Demo complete</div>
+ <h2>🏆 You just did the basic GitHub workflow</h2>
+ <p>Without writing a single line of programming code.</p>
+ <div class="flow">
+  <div class="node">📁 Repo</div><div class="arrow">→</div>
+  <div class="node">📸 2 commits</div><div class="arrow">→</div>
+  <div class="node">🌿 Branch</div><div class="arrow">→</div>
+  <div class="node">🔀 Pull Request</div><div class="arrow">→</div>
+  <div class="node">🎉 Merge</div>
+ </div>
+ <p class="yellow">Congratulations! 🎊</p>
+</section>
+
+<!-- Challenge -->
+<section class="slide">
+ <div class="eyebrow">04 · Give yourself a little challenge</div>
+ <h2>Did it sink in?</h2>
+ <p>Try to answer first, then <strong>click a question</strong> to reveal the answer.</p>
+ <div class="qa"><span class="tapme">tap to reveal</span><div class="q">1. If I make a mistake in my project, which feature helps me find an older version?</div><div class="a">The commit history — every commit is a checkpoint you can go back to.</div></div>
+ <div class="qa"><span class="tapme">tap to reveal</span><div class="q">2. If I want to experiment without breaking my main project, what should I create?</div><div class="a">A branch.</div></div>
+ <div class="qa"><span class="tapme">tap to reveal</span><div class="q">3. If I want someone to review my changes before accepting them, what should I create?</div><div class="a">A Pull Request.</div></div>
+ <div class="qa"><span class="tapme">tap to reveal</span><div class="q">4. What's the difference between Git and GitHub?</div><div class="a">Git is the tool that tracks changes. GitHub is the website that hosts Git projects and makes collaboration easier.</div></div>
+</section>
+
+<!-- Bonus -->
+<section class="slide">
+ <div class="eyebrow">04 · Bonus challenge</div>
+ <h2>Become a developer! 🎮</h2>
+ <p>Create a repository called <code>my-dream-game</code>. Your mission — tick each box as you go:</p>
+ <div id="bonus">
+  <label class="check"><input type="checkbox"><span>Create a README describing your dream game.</span></label>
+  <label class="check"><input type="checkbox"><span>Create a branch called <code>new-game-character</code>.</span></label>
+  <label class="check"><input type="checkbox"><span>Add a description of a new character.</span></label>
+  <label class="check"><input type="checkbox"><span>Commit the changes.</span></label>
+  <label class="check"><input type="checkbox"><span>Open a Pull Request.</span></label>
+  <label class="check"><input type="checkbox"><span>Merge it into main.</span></label>
+ </div>
+ <div class="win" id="bonuswin">🏁 Mission complete!</div>
+</section>
+
+<!-- Playground intro -->
+<section class="slide">
+ <div class="eyebrow">05 · Level up · The Playground</div>
+ <h2>Now let's play with <span class="accent">real Git</span> 🎴</h2>
+ <p>We've prepared a tiny project called <strong>Hero Card Studio</strong>. You create your own copy from <code>playground.bundle</code>, and it comes with a ready-made Git history. You design a hero card in your browser — and use Git to save it, break it, rescue it, and explore alternate universes.</p>
+ <div class="grid three">
+  <div class="card"><div class="icon">💥</div><h3>It starts broken</h3><p>Someone saved a bad change. Can you find it?</p></div>
+  <div class="card"><div class="icon">⏪</div><h3>Time travel</h3><p>Undo the mistake without losing history.</p></div>
+  <div class="card"><div class="icon">🌿</div><h3>Parallel universes</h3><p>Hero vs villain, on separate branches.</p></div>
+ </div>
+ <div class="callout"><p>Needs Git installed (<code>git --version</code> in a terminal) and any web browser. Full instructions are in <code>MISSIONS.md</code> inside the playground.</p></div>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">05 · Setup (2 minutes)</div>
+ <h2>Get the playground ready</h2>
+ <div class="steps">
+  <div class="step"><p>Open a <strong>terminal</strong> (Mac: Terminal app · Windows: Git Bash) in the folder with this presentation, and create your copy:<br><code>git clone playground.bundle playground</code><br><code>cd playground</code></p></div>
+  <div class="step"><p>Tell Git who you are, once:<br><code>git config --global user.name "Your Name"</code><br><code>git config --global user.email "you@example.com"</code></p></div>
+  <div class="step"><p>Open <code>index.html</code> in your browser. You should see <strong>💥 The card is broken!</strong></p></div>
+  <div class="step"><p>Open <code>character.js</code> in any text editor (Notepad, TextEdit, VS Code…).</p></div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">Mission 1 &amp; 2 · The time machine</div>
+ <h2>📖 Read history, then ⏪ undo the oops</h2>
+<pre>git log --oneline</pre>
+ <p>Each line is a commit. Find <strong>“Oops: tidy up character file”</strong> and note its short code.</p>
+<pre>git show &lt;code&gt;
+git revert &lt;code&gt; --no-edit</pre>
+ <p>Refresh <code>index.html</code> — <strong>Captain Pixel is back!</strong> Git added a new commit that reverses the mistake. Nothing was erased.</p>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">Mission 3 · Make it yours</div>
+ <h2>🦸 Design your hero</h2>
+ <p>Edit <code>character.js</code>: change the <strong>name, emoji, power, color</strong> (e.g. <code>#ff8eae</code>) and <strong>motto</strong>. Save, refresh the browser, admire. Then save a checkpoint:</p>
+<pre>git diff                      # what did I change?
+git add character.js
+git commit -m "Make the hero mine"</pre>
+ <div class="callout"><p>Tip: <code>git diff</code> is like “track changes” — it shows exactly what you changed since the last checkpoint.</p></div>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">Mission 4 &amp; 5 · Parallel universes</div>
+ <h2>🌿 Hero vs 😈 Villain</h2>
+ <div class="split">
+  <div>
+<pre>git switch -c evil-mode
+# make your hero a villain!
+git commit -am "Turn to the dark side"
+git switch main</pre>
+   <p>Refresh — your hero is back, untouched! <code>git switch evil-mode</code> brings the villain back.</p>
+  </div>
+  <div>
+   <p>Like the villain better? Merge it (this is what a Pull Request does on GitHub):</p>
+<pre>git switch main
+git merge evil-mode</pre>
+   <p>Don't like it? Skip the merge. <strong>main stays safe.</strong></p>
+  </div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">Playground scoreboard</div>
+ <h2>How many missions can you complete?</h2>
+ <div id="board">
+  <label class="check"><input type="checkbox"><span>📖 Read the history with <code>git log --oneline</code></span></label>
+  <label class="check"><input type="checkbox"><span>⏪ Fixed the broken card with <code>git revert</code></span></label>
+  <label class="check"><input type="checkbox"><span>🦸 Customized my hero and committed</span></label>
+  <label class="check"><input type="checkbox"><span>🌿 Made a villain on the <code>evil-mode</code> branch</span></label>
+  <label class="check"><input type="checkbox"><span>🔀 Merged (or deliberately skipped!) the villain</span></label>
+ </div>
+ <div class="win" id="boardwin">🏆 Git Master! You've used a real time machine.</div>
+ <p style="margin-top:14px">Bonus: edit the <strong>same line</strong> on two branches and merge — meet your first <span class="yellow">conflict</span>! See <code>MISSIONS.md</code>.</p>
+</section>
+
+<!-- Next -->
+<section class="slide">
+ <div class="eyebrow">06 · What to learn next</div>
+ <h2>A natural learning path</h2>
+ <div class="steps">
+  <div class="step"><p><strong>GitHub basics:</strong> repository, commit, branch, pull request.</p></div>
+  <div class="step"><p><strong>Git locally:</strong> install Git and learn <code>git add</code>, <code>git commit</code>, <code>git push</code>, <code>git pull</code>.</p></div>
+  <div class="step"><p><strong>Programming:</strong> learn Python or JavaScript.</p></div>
+  <div class="step"><p><strong>Build something:</strong> a small calculator, quiz game, or website.</p></div>
+  <div class="step"><p><strong>Collaboration:</strong> work with another person on the same project.</p></div>
+ </div>
+ <p style="margin-top:14px;font-size:clamp(14px,1.2vw,17px)">Once you understand the GitHub website, you're ready for real programming and Git commands.</p>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">Final thought</div>
+ <h2>Motivation beats memorizing commands</h2>
+ <div class="bigline">Build something you <span class="accent">genuinely enjoy</span> — such as a Minecraft-inspired game or a personal website.</div>
+ <div class="callout"><p><strong>Coming up in a second lesson:</strong> Git commands using VS Code, where you see how developers really work with GitHub in a real development environment.</p></div>
+ <p class="yellow" style="margin-top:24px">Thank you! 🙌</p>
+</section>
+
+</div>
+<div id="menu"><h2>All slides</h2><div class="list" id="menulist"></div><p style="margin-top:18px">Press <code>Esc</code> or <code>M</code> to close.</p></div>
+<div class="footer">
+ <button id="menubtn" aria-label="Jump to slide" title="Jump to slide (M)">☰</button>
+ <button id="prev" aria-label="Previous slide">←</button>
+ <div class="progress"><span id="bar"></span></div>
+ <div class="counter" id="count"></div>
+ <span class="navhint">← → navigate · M menu · 1–9 jump to section · F fullscreen</span>
+ <button id="next" aria-label="Next slide">→</button>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let current=0;
+const bar=document.getElementById('bar'), count=document.getElementById('count');
+function show(n){
+ current=Math.max(0,Math.min(slides.length-1,n));
+ slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+ bar.style.width=((current+1)/slides.length*100)+'%';
+ count.textContent=(current+1)+' / '+slides.length;
+ document.getElementById('prev').disabled=current===0;
+ document.getElementById('next').disabled=current===slides.length-1;
+ history.replaceState(null,'','#'+(current+1));
+}
+document.getElementById('prev').addEventListener('click',()=>show(current-1));
+document.getElementById('next').addEventListener('click',()=>show(current+1));
+document.addEventListener('keydown',e=>{
+ if(e.target.tagName==='INPUT')return;
+ if(['ArrowRight','PageDown'].includes(e.key)){e.preventDefault();show(current+1)}
+ if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}
+ if(e.key.toLowerCase()==='f'){
+  if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();
+  else document.exitFullscreen?.();
+ }
+ if(e.key==='Home')show(0);
+ if(e.key==='End')show(slides.length-1);
+});
+// interactive: reveal answers
+document.querySelectorAll('.qa').forEach(q=>q.addEventListener('click',()=>q.classList.toggle('open')));
+// interactive: checklists
+function wire(listId,winId){
+ const boxes=[...document.querySelectorAll('#'+listId+' input')], win=document.getElementById(winId);
+ boxes.forEach(b=>b.addEventListener('change',()=>{
+  b.closest('.check').classList.toggle('done',b.checked);
+  win.classList.toggle('show',boxes.every(x=>x.checked));
+ }));
+}
+wire('bonus','bonuswin');wire('board','boardwin');
+
+// agenda + jump menu
+const SECTIONS=[
+ ['Intro','How this session works','How this session works'],
+ ['01','The story & Git vs GitHub','01 ·'],
+ ['02','The four concepts','02 ·'],
+ ['03','GitHub website demo','03 ·'],
+ ['04','Quiz & bonus challenge','04 ·'],
+ ['05','The Git playground','05 ·'],
+ ['06','What to learn next','06 ·']
+];
+const eyebrowOf=s=>(s.querySelector('.eyebrow')||{textContent:''}).textContent.trim();
+const titleOf=s=>(s.querySelector('h1,h2')||{textContent:''}).textContent.replace(/\s+/g,' ').trim();
+const secIndex=SECTIONS.map(x=>slides.findIndex(s=>eyebrowOf(s).startsWith(x[2])));
+const ag=document.getElementById('agenda');
+SECTIONS.forEach((x,i)=>{
+ if(secIndex[i]<0)return;
+ const b=document.createElement('button');
+ b.innerHTML='<span class="n">'+x[0].toUpperCase()+'</span><strong>'+x[1]+'</strong><span class="s">slide '+(secIndex[i]+1)+'</span>';
+ b.addEventListener('click',()=>show(secIndex[i]));
+ ag.appendChild(b);
+});
+const menu=document.getElementById('menu'), list=document.getElementById('menulist');
+slides.forEach((s,i)=>{
+ const b=document.createElement('button');
+ b.innerHTML='<b>'+(i+1)+'</b><span>'+titleOf(s)+'</span>';
+ b.addEventListener('click',()=>{toggleMenu(false);show(i)});
+ list.appendChild(b);
+});
+function toggleMenu(on){
+ menu.classList.toggle('open',on);
+ [...list.children].forEach((b,i)=>b.classList.toggle('cur',i===current));
+}
+document.getElementById('menubtn').addEventListener('click',()=>toggleMenu(!menu.classList.contains('open')));
+document.addEventListener('keydown',e=>{
+ if(e.target.tagName==='INPUT')return;
+ const k=e.key.toLowerCase();
+ if(k==='m')toggleMenu(!menu.classList.contains('open'));
+ else if(k==='escape')toggleMenu(false);
+ else if(/^[1-9]$/.test(k)&&!menu.classList.contains('open')){
+  const idx=secIndex[+k]; if(idx>=0)show(idx);   // 1-6 = sections 01-06
+ }
+});
+show((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>
