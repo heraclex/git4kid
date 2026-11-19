@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero Card Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>🎴 Hero Card Studio</h1>
+  <div id="card-slot"></div>
+  <p class="hint">Edit <code>character.js</code>, save, then refresh this page.</p>
+</main>
+<script src="character.js"></script>
+<script>
+const slot = document.getElementById('card-slot');
+if (typeof character === 'undefined') {
+  slot.innerHTML = '<div class="broken">💥<h2>The card is broken!</h2><p>Someone saved a bad change.<br>Time to use Git as a time machine ⏪</p></div>';
+} else {
+  slot.innerHTML =
+    '<div class="card" style="--c:' + character.color + '">' +
+    '<div class="emoji">' + character.emoji + '</div>' +
+    '<h2>' + character.name + '</h2>' +
+    '<div class="power">⚡ ' + character.power + '</div>' +
+    '<p>“' + character.motto + '”</p></div>';
+}
+</script>
+</body>
+</html>
