@@ -134,7 +134,7 @@ body.sb-open .footer{right:230px}
   <div class="node">💡 Learn 4 ideas</div><div class="arrow">→</div>
   <div class="node">🖐 Try it yourself</div>
  </div>
- <div class="callout"><p>Part 1: story &amp; ideas · Part 2: GitHub website demo · Part 3: a playground you run on your own computer.</p></div>
+ <div class="callout"><p>Part 1: story &amp; ideas · Part 2: GitHub website demo · Part 3: a playground where <strong>you direct Claude Code</strong> to do the Git work.</p></div>
 </section>
 
 <!-- 3. Story -->
@@ -355,80 +355,107 @@ Build my first computer game!</pre>
 
 <!-- Playground intro -->
 <section class="slide">
- <div class="eyebrow">05 · Level up · The Playground</div>
- <h2>Now let's play with <span class="accent">real Git</span> 🎴</h2>
- <p>We've prepared a tiny project called <strong>Hero Card Studio</strong>. You create your own copy from <code>playground.bundle</code>, and it comes with a ready-made Git history. You design a hero card in your browser — and use Git to save it, break it, rescue it, and explore alternate universes.</p>
+ <div class="eyebrow">05 · Level up · The Playground with Claude</div>
+ <h2>Now <span class="accent">you direct</span>, Claude does the Git 🎴</h2>
+ <p>We've prepared a tiny project called <strong>Hero Card Studio</strong> with a ready-made Git history. You won't type Git commands. You tell <strong>Claude Code</strong> what you want in plain words — and Claude saves, undoes, branches, pushes and opens the pull request.</p>
  <div class="grid three">
-  <div class="card"><div class="icon">💥</div><h3>It starts broken</h3><p>Someone saved a bad change. Can you find it?</p></div>
-  <div class="card"><div class="icon">⏪</div><h3>Time travel</h3><p>Undo the mistake without losing history.</p></div>
-  <div class="card"><div class="icon">🌿</div><h3>Parallel universes</h3><p>Hero vs villain, on separate branches.</p></div>
+  <div class="card"><div class="icon">💥</div><h3>It starts broken</h3><p>Someone saved a bad change. Ask Claude to find it.</p></div>
+  <div class="card"><div class="icon">⏪</div><h3>Time travel</h3><p>Ask Claude to undo it without losing history.</p></div>
+  <div class="card"><div class="icon">🔀</div><h3>Share &amp; review</h3><p>Claude opens a pull request. <strong>You</strong> decide whether to merge.</p></div>
  </div>
- <div class="callout"><p>Needs Git installed (<code>git --version</code> in a terminal) and any web browser. Full instructions are in <code>MISSIONS.md</code> inside the playground.</p></div>
+ <div class="callout"><p>You need Claude Code installed and a web browser. Full instructions are in <code>MISSIONS.md</code> inside the playground.</p></div>
 </section>
 
 <section class="slide">
  <div class="eyebrow">05 · Setup (2 minutes)</div>
  <h2>Get the playground ready</h2>
  <div class="steps">
-  <div class="step"><p>Open a <strong>terminal</strong> (Mac: Terminal app · Windows: Git Bash) in the folder with this presentation, and create your copy:<br><code>git clone playground.bundle playground-play</code><br><code>cd playground-play</code></p></div>
-  <div class="step"><p>Tell Git who you are, once:<br><code>git config --global user.name "Your Name"</code><br><code>git config --global user.email "you@example.com"</code></p></div>
+  <div class="step"><p>Open a <strong>terminal</strong> in the folder with this presentation and create your copy:<br><code>git clone playground.bundle playground-play</code><br><code>cd playground-play</code></p></div>
   <div class="step"><p>Open <code>index.html</code> in your browser. You should see <strong>💥 The card is broken!</strong></p></div>
-  <div class="step"><p>Open <code>character.js</code> in any text editor (Notepad, TextEdit, VS Code…).</p></div>
+  <div class="step"><p>Start Claude in this folder:<br><code>claude</code></p></div>
+  <div class="step"><p>Peek at <code>CLAUDE.md</code> — the <strong>house rules</strong> Claude reads before it does anything.</p></div>
  </div>
 </section>
 
 <section class="slide">
- <div class="eyebrow">Mission 1 &amp; 2 · The time machine</div>
+ <div class="eyebrow">05 · The golden loop</div>
+ <h2>Ask → Read → Check</h2>
+ <div class="flow">
+  <div class="node">💬 Ask<br><small>in plain words</small></div><div class="arrow">→</div>
+  <div class="node">👀 Read<br><small>before you approve</small></div><div class="arrow">→</div>
+  <div class="node">✅ Check<br><small>browser or GitHub</small></div>
+ </div>
+ <div class="callout warn"><p><strong>Don't just click “yes”.</strong> Claude can be wrong. Read what it wants to run and the commit message it wrote — you're the one responsible for the result.</p></div>
+ <div class="callout"><p>Curious? Ask any time: <strong>“What exactly did you just run, and what did it do?”</strong></p></div>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">Mission 0 · 1 · 2 · Set up, read, undo</div>
  <h2>📖 Read history, then ⏪ undo the oops</h2>
-<pre>git log --oneline</pre>
- <p>Each line is a commit. Find <strong>“Oops: tidy up character file”</strong> and note its short code.</p>
-<pre>git show &lt;code&gt;
-git revert &lt;code&gt; --no-edit</pre>
- <p>Refresh <code>index.html</code> — <strong>Captain Pixel is back!</strong> Git added a new commit that reverses the mistake. Nothing was erased.</p>
+<pre>Mission 0: "Create a private repo on our GitHub Enterprise
+called hero-card-&lt;my-name&gt;, set it as the remote and push main.
+Give me the link."</pre>
+<pre>Mission 1: "Show me the history in plain English. Which change
+broke the card, and what exactly did it change?"</pre>
+<pre>Mission 2: "Undo only that broken change, but keep all history.
+Then explain what you did."</pre>
+ <p>Refresh <code>index.html</code> — <strong>Captain Pixel is back!</strong> Ask Claude to show the history again: the oops is still there, plus a new “undo” commit.</p>
 </section>
 
 <section class="slide">
  <div class="eyebrow">Mission 3 · Make it yours</div>
  <h2>🦸 Design your hero</h2>
- <p>Edit <code>character.js</code>: change the <strong>name, emoji, power, color</strong> (e.g. <code>#ff8eae</code>) and <strong>motto</strong>. Save, refresh the browser, admire. Then save a checkpoint:</p>
-<pre>git diff                      # what did I change?
-git add character.js
-git commit -m "Make the hero mine"</pre>
- <div class="callout"><p>Tip: <code>git diff</code> is like “track changes” — it shows exactly what you changed since the last checkpoint.</p></div>
+<pre>"Change my hero: name ..., emoji ..., a power, a colour and
+a motto. Show me what changed before saving."</pre>
+<pre>"Save this as a checkpoint with a clear message."</pre>
+ <p>Refresh the browser and admire. Then <strong>read the commit message</strong> Claude proposes before approving.</p>
+ <div class="callout"><p>Good test: would a teammate understand that message in six months?</p></div>
 </section>
 
 <section class="slide">
- <div class="eyebrow">Mission 4 &amp; 5 · Parallel universes</div>
- <h2>🌿 Hero vs 😈 Villain</h2>
+ <div class="eyebrow">Mission 4 &amp; 5 · Parallel universes &amp; review</div>
+ <h2>🌿 Hero vs 😈 Villain → 🔀 Pull Request</h2>
  <div class="split">
   <div>
-<pre>git switch -c evil-mode
-# make your hero a villain!
-git commit -am "Turn to the dark side"
-git switch main</pre>
-   <p>Refresh — your hero is back, untouched! <code>git switch evil-mode</code> brings the villain back.</p>
+<pre>"Create a branch called evil-mode. Turn my hero into a
+villain there and save it. Then switch back to main."</pre>
+   <p>On <code>main</code> your hero is untouched. Ask Claude to switch to <code>evil-mode</code> to see the villain.</p>
   </div>
   <div>
-   <p>Like the villain better? Merge it (this is what a Pull Request does on GitHub):</p>
-<pre>git switch main
-git merge evil-mode</pre>
-   <p>Don't like it? Skip the merge. <strong>main stays safe.</strong></p>
+<pre>"Push evil-mode and open a pull request
+with a clear description."</pre>
+   <p>Open the PR on GitHub, read <strong>Files changed</strong>. Like it? <strong>You</strong> click Merge. Don't? Close it — <code>main</code> stays safe.</p>
   </div>
  </div>
+ <div class="callout"><p>Claude never merges for you. <strong>Humans decide what goes into main.</strong></p></div>
+</section>
+
+<section class="slide">
+ <div class="eyebrow">05 · Claude's house rules</div>
+ <h2>Teach Claude how <em>your</em> team works</h2>
+ <p>The file <code>CLAUDE.md</code> in the project is read by Claude every time. Ours says:</p>
+ <ul>
+  <li>Explain each Git step in one plain sentence</li>
+  <li>Use a branch for experiments, not <code>main</code></li>
+  <li>Never push, open a PR or merge unless asked</li>
+  <li>Never force-push or throw work away without asking</li>
+ </ul>
+ <div class="callout"><p>Bonus: add a rule of your own (e.g. “write commit messages in French”) and watch Claude follow it.</p></div>
 </section>
 
 <section class="slide">
  <div class="eyebrow">Playground scoreboard</div>
  <h2>How many missions can you complete?</h2>
  <div id="board">
-  <label class="check"><input type="checkbox"><span>📖 Read the history with <code>git log --oneline</code></span></label>
-  <label class="check"><input type="checkbox"><span>⏪ Fixed the broken card with <code>git revert</code></span></label>
-  <label class="check"><input type="checkbox"><span>🦸 Customized my hero and committed</span></label>
+  <label class="check"><input type="checkbox"><span>🏗️ Pushed my own copy to GitHub with Claude</span></label>
+  <label class="check"><input type="checkbox"><span>📖 Found the commit that broke the card</span></label>
+  <label class="check"><input type="checkbox"><span>⏪ Undid it — and history was kept</span></label>
+  <label class="check"><input type="checkbox"><span>🦸 Customized my hero and read the commit message</span></label>
   <label class="check"><input type="checkbox"><span>🌿 Made a villain on the <code>evil-mode</code> branch</span></label>
-  <label class="check"><input type="checkbox"><span>🔀 Merged (or deliberately skipped!) the villain</span></label>
+  <label class="check"><input type="checkbox"><span>🔀 Reviewed the pull request and merged (or closed) it myself</span></label>
  </div>
- <div class="win" id="boardwin">🏆 Git Master! You've used a real time machine.</div>
- <p style="margin-top:14px">Bonus: edit the <strong>same line</strong> on two branches and merge — meet your first <span class="yellow">conflict</span>! See <code>MISSIONS.md</code>.</p>
+ <div class="win" id="boardwin">🏆 Claude Director! You led the work and kept control.</div>
+ <p style="margin-top:14px">Bonus: create a <span class="yellow">conflict</span>, or add your own rule to <code>CLAUDE.md</code>. See <code>MISSIONS.md</code>.</p>
 </section>
 
 <!-- Next -->
@@ -437,19 +464,19 @@ git merge evil-mode</pre>
  <h2>A natural learning path</h2>
  <div class="steps">
   <div class="step"><p><strong>GitHub basics:</strong> repository, commit, branch, pull request.</p></div>
-  <div class="step"><p><strong>Git locally:</strong> install Git and learn <code>git add</code>, <code>git commit</code>, <code>git push</code>, <code>git pull</code>.</p></div>
+  <div class="step"><p><strong>Working with Claude Code:</strong> ask it to commit, branch and open pull requests — and learn to read what it does.</p></div>
   <div class="step"><p><strong>Programming:</strong> learn Python or JavaScript.</p></div>
   <div class="step"><p><strong>Build something:</strong> a small calculator, quiz game, or website.</p></div>
   <div class="step"><p><strong>Collaboration:</strong> work with another person on the same project.</p></div>
  </div>
- <p style="margin-top:14px;font-size:clamp(14px,1.2vw,17px)">Once you understand the GitHub website, you're ready for real programming and Git commands.</p>
+ <p style="margin-top:14px;font-size:clamp(14px,1.2vw,17px)">Once you understand the GitHub website and can direct Claude, you're ready to build real things.</p>
 </section>
 
 <section class="slide">
  <div class="eyebrow">Final thought</div>
  <h2>Motivation beats memorizing commands</h2>
  <div class="bigline">Build something you <span class="accent">genuinely enjoy</span> — such as a Minecraft-inspired game or a personal website.</div>
- <div class="callout"><p><strong>Coming up in a second lesson:</strong> Git commands using VS Code, where you see how developers really work with GitHub in a real development environment.</p></div>
+ <div class="callout"><p><strong>Coming up:</strong> using Claude Code on your own projects, from first commit to merged pull request.</p></div>
  <p class="yellow" style="margin-top:24px">Thank you! 🙌</p>
 </section>
 

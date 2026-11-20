@@ -1,12 +1,13 @@
 # git4kid
 
-Teaching material that introduces Git/GitHub to teenagers (~15 y/o): a slide deck plus a hands-on playground repo. Tone: friendly, concrete, no jargon before the problem is understood (see `explain.md` for the teaching approach).
+Teaching material that introduces Git/GitHub to non-technical business people who use Claude Code (repo name is a leftover; GitHub Enterprise remote): a slide deck plus a hands-on playground repo. Tone: friendly, concrete, no jargon before the problem is understood (see `explain.md` for the teaching approach).
 
 ## Files
 - `presentation.html` — **the source of truth for the deck.** Single self-contained file (inline CSS + JS, no build step, no dependencies). Edit it directly.
 - `playground/` — plain source files of the hands-on project ("Hero Card Studio"). It has **no hero-card Git history**; don't work or commit inside it for the lesson.
-- `playground.bundle` — the same project *with* deliberate history (incl. the "Oops" commit). Participants run `git clone playground.bundle playground-play`. See `README.md` for rebuilding it.
-- `explain.md` — teaching notes/outline. `playground/MISSIONS.md` — participant instructions.
+- `playground.bundle` — the same project *with* deliberate history (incl. the "Oops" commit). Participants run `git clone playground.bundle playground-play`, then `claude`. After editing `playground/`, rebuild the bundle (see `README.md`) so it matches. See `README.md` for rebuilding it.
+- `playground/CLAUDE.md` — guardrails read by the *participant's* Claude during the session (not instructions for you). `playground/MISSIONS.md` is prompt-based: learners direct Claude instead of typing git.
+- `explain.md` — teaching notes/outline. 
 
 ## Working on the deck
 - Preview: open `presentation.html` in a browser (no server needed). Nothing here can be run from the CLI; there is no Node, test suite or linter.
