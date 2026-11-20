@@ -22,3 +22,8 @@ Teaching material that introduces Git/GitHub to non-technical business people wh
 - Match the existing CSS variables (`--mint`, `--accent`, …) and component classes (`.card`, `.callout`, `.step`, `.qa`, `.check`) before inventing new ones.
 - Commit messages: short imperative summary. Only commit when asked.
 - Keep `README.md` in sync when user-facing behaviour (keys, workflow) changes.
+
+## Command tooltips
+- Any element with `data-cmd="..."` shows a hover tooltip with the Git command behind the concept (one script handler, no per-element code). Use `&#10;` for line breaks and `&quot;` for quotes inside the attribute.
+- Inline words get a dotted underline via `class="cmd"` (spans/strong/code); table rows and flow nodes just carry `data-cmd`.
+- When adding a slide that names a Git concept (commit, branch, PR, push…), add the matching `data-cmd` for consistency.

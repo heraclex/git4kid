@@ -77,6 +77,50 @@ td:first-child{border-radius:14px 0 0 14px}td:last-child{border-radius:0 14px 14
 .agenda .n{display:block;color:var(--mint);font-weight:900;font-size:.8em;letter-spacing:.12em;margin-bottom:6px}
 .agenda .s{display:block;color:var(--muted);font-size:.8em;margin-top:6px}
 
+.vsplit{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;align-items:center;max-width:1100px}
+.vtable{max-width:none}
+.vtable td{cursor:pointer;transition:background .15s,color .15s}
+.vtable tr:hover td{background:#1c2945}
+.vtable tr.on td{background:#122b31;color:var(--text)}
+.vtable tr.on td:first-child{box-shadow:inset 4px 0 0 var(--mint)}
+.vpanel{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid #2b3958;border-radius:22px;padding:22px;text-align:center;min-height:clamp(220px,38vh,340px);display:grid;place-items:center}
+.vp{display:none}
+.vp.on{display:block;animation:in .25s ease}
+.vp .dg{width:100%;height:clamp(90px,20vh,170px);display:block}
+.vp .real{color:var(--muted);font-size:clamp(15px,1.5vw,21px);margin-top:10px}
+.vp .arrow{font-size:22px;line-height:1.2}
+.vp .gitname{color:var(--text);font-weight:800;font-size:clamp(22px,2.4vw,34px)}
+.vhint{font-size:13px;color:#8291b1;margin:6px 0 0}
+.gvg{display:grid;grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr);align-items:center;gap:6px;max-width:1050px;margin-top:6px}
+.gside{background:linear-gradient(145deg,var(--panel),var(--panel2));border:2px solid #2b3958;border-radius:24px;padding:18px 22px;text-align:center}
+.gside.git{border-color:rgba(98,230,197,.55)}.gside.hub{border-color:rgba(124,156,255,.55)}
+.gbadge{display:inline-block;font-size:clamp(12px,1.1vw,15px);color:var(--muted);border:1px solid #344361;border-radius:999px;padding:5px 12px}
+.gname{font-size:clamp(34px,4.5vw,60px);font-weight:900;letter-spacing:-.04em;line-height:1.1;margin-top:8px}
+.gsub{color:var(--muted);font-size:clamp(15px,1.5vw,21px);margin-bottom:6px}
+.gside .dg{width:80%;height:clamp(30px,6vh,46px);display:block;margin:6px auto}
+.gpeople{font-size:clamp(26px,3.4vw,44px);letter-spacing:.1em;height:clamp(30px,6vh,46px);display:flex;align-items:center;justify-content:center;margin:6px 0}
+.glist{list-style:none;padding:0;margin:8px 0 0;text-align:left;display:inline-block;font-size:clamp(14px,1.3vw,18px);line-height:1.6}
+.glist li:before{content:"✓ ";color:var(--mint);font-weight:900}
+.gmid{display:grid;gap:14px;justify-items:center}
+.garrow{display:flex;align-items:center;gap:6px;color:var(--yellow);font-weight:800;font-size:clamp(13px,1.2vw,17px)}
+.garrow i{font-style:normal;font-size:clamp(28px,3vw,40px);line-height:1}
+.lanes{display:grid;grid-template-columns:minmax(120px,1.1fr) repeat(3,minmax(0,1fr));gap:8px 10px;align-items:center;max-width:1050px;margin:18px 0 10px}
+.ll{display:flex;flex-direction:column;font-size:clamp(14px,1.4vw,19px);color:var(--text);padding:10px 14px;border-radius:14px;border:1px solid #2b3958;background:var(--panel)}
+.ll small{color:var(--muted);font-size:.75em}
+.ll.hub{border-color:rgba(124,156,255,.6)}.ll.git{border-color:rgba(98,230,197,.6)}
+.lc{border-radius:14px;padding:10px 12px;text-align:center;background:#202d4b;border:1px solid #3a4b70;min-height:58px;display:flex;flex-direction:column;justify-content:center}
+.lc b{color:var(--mint);font-size:clamp(14px,1.4vw,18px)}
+.lc small{color:var(--muted);font-size:clamp(11px,1vw,14px);line-height:1.25}
+.lc.ghost{background:none;border:2px dashed #3a4b70}
+.lc.new{border:2px dashed var(--yellow);background:#2e2a14}.lc.new b{color:var(--yellow)}
+.lp{text-align:center;color:var(--yellow);font-weight:800;font-size:clamp(12px,1.15vw,16px);height:20px;line-height:20px}
+.cmd{cursor:help}
+span.cmd,strong.cmd,code.cmd{text-decoration:underline dotted var(--mint);text-underline-offset:4px;text-decoration-thickness:2px}
+.node.cmd:hover{border-color:var(--mint)}
+.tiphint{font-size:.7em;color:#8291b1;white-space:nowrap}
+#tip{position:fixed;z-index:20;pointer-events:none;display:none;max-width:min(460px,90vw);background:#05080f;border:1px solid var(--mint);border-radius:12px;padding:10px 14px;box-shadow:0 8px 28px rgba(0,0,0,.55)}
+#tip small{display:block;color:var(--mint);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+#tip pre{margin:0;padding:0;border:0;background:none;font-size:15px;line-height:1.5;color:#c9d7ff;white-space:pre-wrap;max-width:none}
 /* right slide-sorter sidebar */
 #sidebar{position:fixed;top:0;right:0;bottom:0;width:230px;background:#0a0f1d;border-left:1px solid #2b3958;z-index:5;overflow-y:auto;padding:12px 12px 80px;display:none}
 body.sb-open #sidebar{display:block}
@@ -92,6 +136,9 @@ body.sb-open .footer{right:230px}
 #sbbtn.on{border-color:var(--mint)}
 @media print{#sidebar{display:none!important}body.sb-open .deck{width:auto}}
 @media(max-width:700px){
+ .vsplit{grid-template-columns:1fr}
+ .lanes{grid-template-columns:repeat(3,minmax(0,1fr))}.ll{grid-column:1/-1}
+ .gvg{grid-template-columns:1fr}.gmid{grid-auto-flow:column}
  .agenda{grid-template-columns:1fr}
  .slide{padding:5vh 6vw 90px}.grid,.grid.three,.split{grid-template-columns:1fr}
  .footer{padding:0 12px;gap:8px}.navhint{display:none}
@@ -155,24 +202,51 @@ body.sb-open .footer{right:230px}
 <section class="slide">
  <div class="eyebrow">01 · Real world ↔ Git world</div>
  <h2>Same ideas, different names</h2>
- <table>
-  <tr><th>Real-world concept</th><th>Git / GitHub concept</th></tr>
-  <tr><td>A project folder</td><td>Repository (Repo)</td></tr>
-  <tr><td>Save a version of your work</td><td>Commit</td></tr>
-  <tr><td>A history book of changes</td><td>Commit history</td></tr>
-  <tr><td>Try a new idea separately</td><td>Branch</td></tr>
-  <tr><td>Ask to combine your work</td><td>Pull Request</td></tr>
-  <tr><td>Share your project online</td><td>GitHub</td></tr>
- </table>
+ <div class="vsplit">
+  <table class="vtable">
+   <tr><th>Real-world concept</th><th>Git / GitHub concept</th></tr>
+  <tr data-cmd="git init&#10;# or copy an existing one:&#10;git clone &lt;url&gt;" class="vrow on" data-i="0"><td>A project folder</td><td>Repository</td></tr>
+  <tr data-cmd="git add .&#10;git commit -m &quot;Describe the change&quot;" class="vrow" data-i="1"><td>Save a version of your work</td><td>Commit</td></tr>
+  <tr data-cmd="git log --oneline" class="vrow" data-i="2"><td>A history book of changes</td><td>Commit history</td></tr>
+  <tr data-cmd="git switch -c new-idea" class="vrow" data-i="3"><td>Try a new idea separately</td><td>Branch</td></tr>
+  <tr data-cmd="gh pr create" class="vrow" data-i="4"><td>Ask to combine your work</td><td>Pull Request</td></tr>
+  <tr data-cmd="git push" class="vrow" data-i="5"><td>Share your project online</td><td>GitHub</td></tr>
+  </table>
+  <div class="vpanel">
+   <div class="vp on"><svg class="dg" viewBox="0 0 140 76" aria-hidden="true"><path d="M22 20h30l8 9h58v34H22z" fill="#202d4b" stroke="#7c9cff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><rect x="34" y="38" width="26" height="4" rx="2" fill="#62e6c5"/><rect x="34" y="48" width="44" height="4" rx="2" fill="#3a4b70"/></svg><div class="real">A project folder</div><div class="arrow">↓</div><div class="gitname">Repository</div></div>
+   <div class="vp"><svg class="dg" viewBox="0 0 140 76" aria-hidden="true"><path d="M10 38h120" stroke="#3a4b70" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="70" cy="38" r="16" fill="#122b31" stroke="#62e6c5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M62 38l6 6 11-12" stroke="#62e6c5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><div class="real">Save a version of your work</div><div class="arrow">↓</div><div class="gitname">Commit</div></div>
+   <div class="vp"><svg class="dg" viewBox="0 0 140 76" aria-hidden="true"><path d="M20 38h100" stroke="#3a4b70" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="22" cy="38" r="9" fill="#202d4b" stroke="#7c9cff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="52" cy="38" r="9" fill="#202d4b" stroke="#7c9cff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="82" cy="38" r="9" fill="#202d4b" stroke="#7c9cff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="114" cy="38" r="11" fill="#122b31" stroke="#62e6c5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M6 62h124" stroke="#ffd36e" stroke-width="2" stroke-dasharray="3 5"/><path d="M122 58l8 4-8 4" stroke="#ffd36e" stroke-width="2" fill="none"/></svg><div class="real">A history book of changes</div><div class="arrow">↓</div><div class="gitname">Commit history</div></div>
+   <div class="vp"><svg class="dg" viewBox="0 0 140 76" aria-hidden="true"><path d="M12 56h116" stroke="#7c9cff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M44 56c14 0 14-30 34-30h46" stroke="#ff8eae" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="44" cy="56" r="7" fill="#0b1020" stroke="#7c9cff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="124" cy="26" r="7" fill="#ff8eae"/></svg><div class="real">Try a new idea separately</div><div class="arrow">↓</div><div class="gitname">Branch</div></div>
+   <div class="vp"><svg class="dg" viewBox="0 0 140 76" aria-hidden="true"><path d="M12 56h116" stroke="#7c9cff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M20 56c14 0 14-32 36-32h26c14 0 14 32 30 32" stroke="#ff8eae" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="112" cy="56" r="9" fill="#122b31" stroke="#62e6c5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M106 56l4 4 7-8" stroke="#62e6c5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M64 14v-2" stroke="none"/><text x="70" y="14" text-anchor="middle" font-size="12" fill="#ffd36e" font-weight="800">?</text></svg><div class="real">Ask to combine your work</div><div class="arrow">↓</div><div class="gitname">Pull Request</div></div>
+   <div class="vp"><svg class="dg" viewBox="0 0 140 76" aria-hidden="true"><path d="M42 54a14 14 0 0 1 2-28 20 20 0 0 1 38-4 16 16 0 0 1 14 32z" fill="#202d4b" stroke="#7c9cff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M70 62V38m-8 8l8-8 8 8" stroke="#62e6c5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><div class="real">Share your project online</div><div class="arrow">↓</div><div class="gitname">GitHub</div></div>
+  </div>
+ </div>
+ <p class="vhint">👆 Click a row to see the picture</p>
 </section>
 
 <!-- 5. Git vs GitHub -->
 <section class="slide">
  <div class="eyebrow">01 · One important distinction</div>
  <h2>Git vs GitHub</h2>
- <div class="split">
-  <div class="card"><div class="icon">🕰️</div><h3 class="accent">Git</h3><p>The <strong>tool</strong> that tracks changes in your code.</p><div class="pill">Tracks history</div><div class="pill">Runs on your computer</div></div>
-  <div class="card"><div class="icon">🐙</div><h3 class="blue">GitHub</h3><p>A <strong>website / platform</strong> that hosts Git projects and makes collaboration easier.</p><div class="pill">Hosts repositories</div><div class="pill">Helps teams collaborate</div></div>
+ <div class="gvg">
+  <div class="gside git">
+   <div class="gbadge">💻 On your computer</div>
+   <div class="gname accent">Git</div>
+   <div class="gsub">the <strong>time machine</strong></div>
+   <svg class="dg" viewBox="0 0 200 40" aria-hidden="true"><path d="M14 20h172" stroke="#3a4b70" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="20" r="9" fill="#202d4b" stroke="#7c9cff" stroke-width="3"/><circle cx="70" cy="20" r="9" fill="#202d4b" stroke="#7c9cff" stroke-width="3"/><circle cx="116" cy="20" r="9" fill="#202d4b" stroke="#7c9cff" stroke-width="3"/><circle cx="170" cy="20" r="11" fill="#122b31" stroke="#62e6c5" stroke-width="3"/></svg>
+   <ul class="glist"><li>Saves checkpoints</li><li>Remembers every change</li><li>Works offline</li></ul>
+  </div>
+  <div class="gmid">
+   <div class="garrow"><span class="cmd" data-cmd="git push">push</span><i>→</i></div>
+   <div class="garrow back"><i>←</i><span class="cmd" data-cmd="git pull">pull</span></div>
+  </div>
+  <div class="gside hub">
+   <div class="gbadge">☁️ On the internet</div>
+   <div class="gname blue">GitHub</div>
+   <div class="gsub">the <strong>shared home</strong></div>
+   <div class="gpeople">👩‍💻 🧑‍💻 👨‍💻</div>
+   <ul class="glist"><li>Stores projects online</li><li>Teams review &amp; combine work</li><li>Pull requests &amp; backup</li></ul>
+  </div>
  </div>
  <div class="callout"><p>An easy sentence to remember:<br><strong>Git is the time machine. GitHub is the place where developers share their time machines and work together.</strong></p></div>
 </section>
@@ -182,10 +256,10 @@ body.sb-open .footer{right:230px}
  <div class="eyebrow">02 · Introduce the four most important concepts</div>
  <h2>The starter pack — only these four</h2>
  <div class="grid">
-  <div class="card"><div class="icon">📁</div><h3>1. Repository (Repo)</h3><p>A project folder containing all your files and the history of changes.</p><div class="eg">Example: a repository called <code>my-first-game</code>.</div></div>
-  <div class="card"><div class="icon">📸</div><h3>2. Commit</h3><p>A saved checkpoint of your project.</p><div class="eg">Example: “I added a player character.”</div></div>
-  <div class="card"><div class="icon">🌿</div><h3>3. Branch</h3><p>A separate workspace where you can experiment without changing the main version.</p><div class="eg">Example: try adding a new game level.</div></div>
-  <div class="card"><div class="icon">🔀</div><h3>4. Pull Request (PR)</h3><p>A proposal to merge your changes into the main project.</p><div class="eg">Example: “I've finished the new level. Can we add it to the game?”</div></div>
+  <div class="card"><div class="icon">📁</div><h3>1. <span class="cmd" data-cmd="git init&#10;# or copy an existing one:&#10;git clone &lt;url&gt;">Repository (Repo)</span></h3><p>A project folder containing all your files and the history of changes.</p><div class="eg">Example: a repository called <code>my-first-game</code>.</div></div>
+  <div class="card"><div class="icon">📸</div><h3>2. <span class="cmd" data-cmd="git add .&#10;git commit -m &quot;Describe the change&quot;">Commit</span></h3><p>A saved checkpoint of your project.</p><div class="eg">Example: “I added a player character.”</div></div>
+  <div class="card"><div class="icon">🌿</div><h3>3. <span class="cmd" data-cmd="git switch -c new-idea">Branch</span></h3><p>A separate workspace where you can experiment without changing the main version.</p><div class="eg">Example: try adding a new game level.</div></div>
+  <div class="card"><div class="icon">🔀</div><h3>4. <span class="cmd" data-cmd="gh pr create">Pull Request (PR)</span></h3><p>A proposal to merge your changes into the main project.</p><div class="eg">Example: “I've finished the new level. Can we add it to the game?”</div></div>
  </div>
 </section>
 
@@ -194,14 +268,14 @@ body.sb-open .footer{right:230px}
  <div class="eyebrow">02 · How the ideas fit together</div>
  <h2>A tiny project journey</h2>
  <div class="flow">
-  <div class="node">📁 Create repo</div><div class="arrow">→</div>
-  <div class="node">📸 Commit</div><div class="arrow">→</div>
-  <div class="node">🌿 Branch</div>
+  <div class="node cmd" data-cmd="git init&#10;# or copy an existing one:&#10;git clone &lt;url&gt;">📁 Create repo</div><div class="arrow">→</div>
+  <div class="node cmd" data-cmd="git add .&#10;git commit -m &quot;Describe the change&quot;">📸 Commit</div><div class="arrow">→</div>
+  <div class="node cmd" data-cmd="git switch -c new-idea">🌿 Branch</div>
  </div>
  <div class="flow">
   <div class="node">✍️ Make changes</div><div class="arrow">→</div>
-  <div class="node">🔀 Pull Request</div><div class="arrow">→</div>
-  <div class="node">🎉 Merge</div>
+  <div class="node cmd" data-cmd="gh pr create">🔀 Pull Request</div><div class="arrow">→</div>
+  <div class="node cmd" data-cmd="git merge new-idea&#10;# on GitHub: the Merge button">🎉 Merge</div>
  </div>
  <p>In plain English: start a project, save a checkpoint, experiment separately, ask to combine your changes, then merge them.</p>
 </section>
@@ -247,7 +321,7 @@ I am learning GitHub.
 
 ## My goal
 Build my first computer game!</pre>
- <p>Scroll to the commit section. Commit message: <code>Create my first README</code> → click <code>Commit changes</code>.</p>
+ <p>Scroll to the commit section. Commit message: <code>Create my first README</code> → click <code class="cmd" data-cmd="git add README.md&#10;git commit -m &quot;Create my first README&quot;">Commit changes</code>.</p>
  <div class="callout"><p>“You've just saved a checkpoint. GitHub remembers what your project looked like at this moment.” 📸</p></div>
 </section>
 
@@ -255,18 +329,28 @@ Build my first computer game!</pre>
 <section class="slide">
  <div class="eyebrow">03 · Step 3 of 5 · Build the history</div>
  <h2>Change something and commit again</h2>
- <p>Edit <code>README.md</code> again. Add:</p>
-<pre>## My favourite games
+ <div class="split" style="align-items:start">
+  <div>
+   <p style="margin-bottom:8px">Edit <code>README.md</code> again. Add:</p>
+<pre style="padding:12px 18px;margin-bottom:10px">## My favourite games
 - Minecraft
 - Roblox
 - Fortnite</pre>
- <p>Commit with this message: <code>Add my favourite games</code></p>
- <div class="flow" style="margin:6px 0">
-  <div class="node">Commit 1<br><small>Create my first README</small></div><div class="arrow">→</div>
-  <div class="node">Commit 2<br><small>Add my favourite games</small></div>
+   <p style="margin:0">Commit message: <code>Add my favourite games</code>, then open the <strong class="cmd" data-cmd="git log --oneline">commit history</strong> to see both versions <span class="tiphint">💡 hover the dotted words</span>.</p>
+  </div>
+  <div>
+   <div class="callout" style="margin-top:0"><p><strong>The interesting part:</strong> if you delete something by accident, open the previous commit and recover your earlier work. ⏪</p></div>
+   <div class="callout warn"><p><strong>Is it shared?</strong> On github.com, a commit is saved <em>and</em> shared in one click. With Git on your own computer, a commit stays <strong>private until you push</strong> it.</p></div>
+  </div>
  </div>
- <p>Now you have two commits. Open the repository's <strong>commit history</strong> and see how GitHub remembers both versions.</p>
- <div class="callout"><p><strong>The interesting part:</strong> if you accidentally delete something, you can look at the previous commit and recover your earlier work. ⏪</p></div>
+ <div class="lanes">
+  <div class="ll hub">☁️ <strong>GitHub</strong><small>everyone can see 👥</small></div>
+  <div class="lc "><b>1</b><small>Create my first README</small></div><div class="lc "><b>2</b><small>Add my favourite games</small></div><div class="lc ghost"><small>waiting for a push…</small></div>
+  <div class="lp"></div>
+  <div class="lp"><span class="cmd" data-cmd="git push">⬆ push</span></div><div class="lp"><span class="cmd" data-cmd="git push">⬆ push</span></div><div class="lp"><span class="cmd" data-cmd="git push">⬆ push?</span></div>
+  <div class="ll git">💻 <strong>Your computer</strong><small>only you 🔒</small></div>
+  <div class="lc "><b>1</b><small>Create my first README</small></div><div class="lc "><b>2</b><small>Add my favourite games</small></div><div class="lc new cmd" data-cmd="git commit -m &quot;A new idea&quot;&#10;# stays on your computer until you push"><b>3</b><small>a new idea</small></div>
+ </div>
 </section>
 
 <!-- Step 4 -->
@@ -277,7 +361,7 @@ Build my first computer game!</pre>
   <div>
    <p>Pretend you want to add a new feature. Instead of modifying the main project directly:</p>
    <ol>
-    <li>Go to the repository's <strong>branch selector</strong>.</li>
+    <li>Go to the repository's <strong class="cmd" data-cmd="git switch -c add-my-hobbies">branch selector</strong>.</li>
     <li>Create a new branch called <code>add-my-hobbies</code>.</li>
     <li>Edit <code>README.md</code> on that branch.</li>
     <li>Add a new section (right).</li>
@@ -303,11 +387,11 @@ Build my first computer game!</pre>
  <h2>Create a Pull Request → Merge</h2>
  <p>This is where GitHub becomes interesting.</p>
  <div class="steps">
-  <div class="step"><p>Go to the <strong>Pull requests</strong> tab and click <code>New pull request</code>.</p></div>
+  <div class="step"><p>Go to the <strong>Pull requests</strong> tab and click <code class="cmd" data-cmd="gh pr create --base main --head add-my-hobbies">New pull request</code>.</p></div>
   <div class="step"><p>Select <strong>Base:</strong> <code>main</code> and <strong>Compare:</strong> <code>add-my-hobbies</code>. You should see the changes you made.</p></div>
   <div class="step"><p>Give it a title: <code>Add my hobbies to the project</code></p></div>
-  <div class="step"><p>Click <code>Create pull request</code>.</p></div>
-  <div class="step"><p>Finally, click <code>Merge pull request</code> and confirm.</p></div>
+  <div class="step"><p>Click <code class="cmd" data-cmd="gh pr create --base main --head add-my-hobbies">Create pull request</code>.</p></div>
+  <div class="step"><p>Finally, click <code class="cmd" data-cmd="gh pr merge">Merge pull request</code> and confirm.</p></div>
  </div>
  <div class="callout"><p>“You're asking the project owner to review your work before adding it to the main project.”</p></div>
 </section>
@@ -317,11 +401,11 @@ Build my first computer game!</pre>
  <h2>🏆 You just did the basic GitHub workflow</h2>
  <p>Without writing a single line of programming code.</p>
  <div class="flow">
-  <div class="node">📁 Repo</div><div class="arrow">→</div>
-  <div class="node">📸 2 commits</div><div class="arrow">→</div>
-  <div class="node">🌿 Branch</div><div class="arrow">→</div>
-  <div class="node">🔀 Pull Request</div><div class="arrow">→</div>
-  <div class="node">🎉 Merge</div>
+  <div class="node cmd" data-cmd="git init&#10;# or copy an existing one:&#10;git clone &lt;url&gt;">📁 Repo</div><div class="arrow">→</div>
+  <div class="node cmd" data-cmd="git add .&#10;git commit -m &quot;Describe the change&quot;">📸 2 commits</div><div class="arrow">→</div>
+  <div class="node cmd" data-cmd="git switch -c new-idea">🌿 Branch</div><div class="arrow">→</div>
+  <div class="node cmd" data-cmd="gh pr create">🔀 Pull Request</div><div class="arrow">→</div>
+  <div class="node cmd" data-cmd="git merge new-idea&#10;# on GitHub: the Merge button">🎉 Merge</div>
  </div>
  <p class="yellow">Congratulations! 🎊</p>
 </section>
@@ -344,11 +428,11 @@ Build my first computer game!</pre>
  <p>Create a repository called <code>my-dream-game</code>. Your mission — tick each box as you go:</p>
  <div id="bonus">
   <label class="check"><input type="checkbox"><span>Create a README describing your dream game.</span></label>
-  <label class="check"><input type="checkbox"><span>Create a branch called <code>new-game-character</code>.</span></label>
+  <label class="check"><input type="checkbox"><span class="cmd" data-cmd="git switch -c new-game-character">Create a branch called <code>new-game-character</code>.</span></label>
   <label class="check"><input type="checkbox"><span>Add a description of a new character.</span></label>
-  <label class="check"><input type="checkbox"><span>Commit the changes.</span></label>
-  <label class="check"><input type="checkbox"><span>Open a Pull Request.</span></label>
-  <label class="check"><input type="checkbox"><span>Merge it into main.</span></label>
+  <label class="check"><input type="checkbox"><span class="cmd" data-cmd="git add .&#10;git commit -m &quot;Describe the change&quot;">Commit the changes.</span></label>
+  <label class="check"><input type="checkbox"><span class="cmd" data-cmd="gh pr create">Open a Pull Request.</span></label>
+  <label class="check"><input type="checkbox"><span class="cmd" data-cmd="gh pr merge">Merge it into main.</span></label>
  </div>
  <div class="win" id="bonuswin">🏁 Mission complete!</div>
 </section>
@@ -481,6 +565,7 @@ with a clear description."</pre>
 </section>
 
 </div>
+<div id="tip"><small>💻 The Git command</small><pre></pre></div>
 <aside id="sidebar" aria-label="Slide thumbnails"></aside>
 <div class="footer">
  <button id="sbbtn" aria-label="Toggle slide sidebar" title="Slide sidebar (T)">▥</button>
@@ -553,6 +638,30 @@ SECTIONS.forEach((x,i)=>{
 document.addEventListener('keydown',e=>{
  if(e.target.tagName==='INPUT'||e.ctrlKey||e.metaKey)return;
  if(/^[1-9]$/.test(e.key)){const idx=secIndex[+e.key]; if(idx>=0)show(idx);}   // 1-6 = sections 01-06
+});
+
+
+// vocabulary slide: click a row to change the picture
+document.querySelectorAll('.vrow').forEach(r=>r.addEventListener('click',()=>{
+ const t=r.closest('.slide');
+ t.querySelectorAll('.vrow').forEach(x=>x.classList.toggle('on',x===r));
+ t.querySelectorAll('.vp').forEach((x,i)=>x.classList.toggle('on',i===+r.dataset.i));
+}));
+
+// hover tooltips: show the Git command behind a concept
+const tip=document.getElementById('tip'), tipPre=tip.querySelector('pre');
+document.addEventListener('mouseover',e=>{
+ const t=e.target.closest&&e.target.closest('[data-cmd]');
+ if(!t||t.closest('#sidebar')){tip.style.display='none';return}
+ tipPre.textContent=t.dataset.cmd;tip.style.display='block';
+});
+document.addEventListener('mousemove',e=>{
+ if(tip.style.display!=='block')return;
+ const w=tip.offsetWidth,h=tip.offsetHeight;
+ let x=e.clientX+16,y=e.clientY+18;
+ if(x+w>innerWidth-8)x=e.clientX-w-16;
+ if(y+h>innerHeight-8)y=e.clientY-h-16;
+ tip.style.left=Math.max(8,x)+'px';tip.style.top=Math.max(8,y)+'px';
 });
 
 // right sidebar with live slide thumbnails
