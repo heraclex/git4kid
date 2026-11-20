@@ -1,1 +1,4 @@
 .DS_Store
+
+# local-only sync helper (pushes to personal GitHub)
+sync2personalrepo.sh
